@@ -1,0 +1,16 @@
+---
+zeopp_version: "0.3"
+zeopp_src_archive: "zeo++-{{ zeopp_version }}.tar.gz"
+zeopp_url: "http://www.zeoplusplus.org/download/{{ zeopp_src_archive }}"
+
+zeopp_code_folder: "{{ ansible_env.HOME }}"
+zeopp_src: "zeo++-0.3"
+zeopp_topdir: "{{ zeopp_code_folder }}/{{zeopp_src}}"
+ 
+zeopp_executables:
+- name: voro++
+  folder: "{{ zeopp_topdir }}/voro++/src"
+- name: network
+  folder: "{{ zeopp_topdir }}"
+
+root_user: root

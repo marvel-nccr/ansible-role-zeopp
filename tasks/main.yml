@@ -1,0 +1,52 @@
+# Will only download once
+- name: Get zeo++ source
+  get_url:
+    url: "{{ zeopp_url }}"
+    dest: "{{ zeopp_code_folder }}/{{  zeopp_src_archive }}"
+    url_username: "{{ lookup('file', './keys/zeopp_user') }}"
+    url_password: "{{ lookup('file', './keys/zeopp_pass') }}"
+    # for some reason, server takes ~10s to respond when queried from OS
+    timeout: 30
+  register: zeopp_download
+
+- name: Extract zeo++ source
+  unarchive:
+    src: "{{ zeopp_download.dest }}"
+    dest: "{{ zeopp_code_folder }}"
+    remote_src: yes
+     
+- name: "Make zeopp executables"
+  shell: "make"
+  args:
+    chdir: "{{ item.folder }}"
+    creates: "{{ item.folder }}/{{ item.name }}"
+  with_items: "{{ zeopp_executables }}"
+  register: voropp_make
+
+#- name: zeo++ tests
+#  import_tasks: tests.yml
+#  when: zeopp_make.changed and run_tests is defined and run_tests
+#
+- name: "Put a line in ~/.profile to add {{ item.name }} to the path"
+  lineinfile:
+    path: "{{ ansible_env.HOME }}/.profile"
+    line: "export PATH=${PATH}:{{ item.folder }}"
+  with_items: "{{ zeopp_executables }}"
+
+- import_role:
+    name: release_notes
+  vars:
+    section: "zeo++"
+    option: "version"
+    value: "{{ zeopp_version }}"
+  when: release_notes
+
+- import_role:
+    name: release_notes
+  vars:
+    section: "zeo++"
+    option: "usage"
+    value: >-
+        zeo++ is installed in {{ zeopp_topdir }}. 
+        'network', 'voro++' have been added to the PATH
+  when: release_notes
