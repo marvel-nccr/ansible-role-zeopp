@@ -33,7 +33,7 @@
     line: "export PATH=${PATH}:{{ item.folder }}"
   with_items: "{{ zeopp_executables }}"
 
-- import_role:
+- include_role:
     name: release_notes
   vars:
     section: "zeo++"
@@ -41,7 +41,7 @@
     value: "{{ zeopp_version }}"
   when: release_notes
 
-- import_role:
+- include_role:
     name: release_notes
   vars:
     section: "zeo++"
