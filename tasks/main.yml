@@ -3,8 +3,8 @@
   get_url:
     url: "{{ zeopp_url }}"
     dest: "{{ zeopp_code_folder }}/{{  zeopp_src_archive }}"
-    url_username: "{{ lookup('file', './keys/zeopp_user') }}"
-    url_password: "{{ lookup('file', './keys/zeopp_pass') }}"
+    url_username: "{{ zeopp_url_username }}"
+    url_password: "{{ zeopp_url_password }}"
     # for some reason, server takes ~10s to respond when queried from OS
     timeout: 30
   register: zeopp_download
@@ -39,7 +39,7 @@
     section: "zeo++"
     option: "version"
     value: "{{ zeopp_version }}"
-  when: release_notes
+  when: release_notes is defined and release_notes
 
 - include_role:
     name: release_notes
@@ -49,4 +49,4 @@
     value: >-
         zeo++ is installed in {{ zeopp_topdir }}. 
         'network', 'voro++' have been added to the PATH
-  when: release_notes
+  when: release_notes is defined and release_notes
