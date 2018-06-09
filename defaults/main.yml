@@ -15,5 +15,6 @@ zeopp_executables:
   folder: "{{ zeopp_topdir }}/voro++/src"
 - name: network
   folder: "{{ zeopp_topdir }}"
+  plugin: zeopp.network
 
 root_user: root
