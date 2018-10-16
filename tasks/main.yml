@@ -3,8 +3,8 @@
   get_url:
     url: "{{ zeopp_url }}"
     dest: "{{ zeopp_code_folder }}/{{  zeopp_src_archive }}"
-    url_username: "{{ lookup('file', './keys/zeopp_user') }}"
-    url_password: "{{ lookup('file', './keys/zeopp_pass') }}"
+    url_username: "{{ zeopp_url_username }}"
+    url_password: "{{ zeopp_url_password }}"
     # for some reason, server takes ~10s to respond when queried from OS
     timeout: 30
   register: zeopp_download

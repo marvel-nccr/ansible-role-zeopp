@@ -2,6 +2,8 @@
 zeopp_version: "0.3"
 zeopp_src_archive: "zeo++-{{ zeopp_version }}.tar.gz"
 zeopp_url: "http://www.zeoplusplus.org/download/{{ zeopp_src_archive }}"
+zeopp_url_username: "{{ lookup('file', './keys/zeopp_user') }}"
+zeopp_url_password: "{{ lookup('file', './keys/zeopp_pass') }}"
 
 zeopp_code_folder: "{{ ansible_env.HOME }}"
 zeopp_src: "zeo++-0.3"
