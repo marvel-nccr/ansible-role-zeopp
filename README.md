@@ -16,9 +16,11 @@ See `defaults/main.yml`
 
 ## Example Playbook
 
+```
   - hosts: servers
     roles:
     - role: marvel-nccr.zeopp
+```
 
 ## License
 

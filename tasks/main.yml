@@ -1,3 +1,4 @@
+---
 # Will only download once
 - name: Get zeo++ source
   get_url:
@@ -13,8 +14,16 @@
   unarchive:
     src: "{{ zeopp_download.dest }}"
     dest: "{{ zeopp_code_folder }}"
-    remote_src: yes
-     
+    remote_src: false
+
+- name: "Install prerequisites"
+  become: true
+  become_user: "{{ root_user }}"
+  apt:
+    name:
+      - build-essential
+      - gcc
+
 - name: "Make zeopp executables"
   shell: "make"
   args:
@@ -23,9 +32,9 @@
   with_items: "{{ zeopp_executables }}"
   register: voropp_make
 
-#- name: zeo++ tests
-#  import_tasks: tests.yml
-#  when: zeopp_make.changed and run_tests is defined and run_tests
+# - name: zeo++ tests
+#   import_tasks: tests.yml
+#   when: zeopp_make.changed and run_tests is defined and run_tests
 #
 - name: "Put a line in ~/.profile to add {{ item.name }} to the path"
   lineinfile:
@@ -47,6 +56,6 @@
     section: "zeo++"
     option: "usage"
     value: >-
-        zeo++ is installed in {{ zeopp_topdir }}. 
+        zeo++ is installed in {{ zeopp_topdir }}.
         'network', 'voro++' have been added to the PATH
   when: release_notes is defined and release_notes

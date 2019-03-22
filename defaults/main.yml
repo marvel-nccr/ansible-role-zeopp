@@ -9,12 +9,12 @@ zeopp_url_password: ""
 zeopp_code_folder: "{{ ansible_env.HOME }}"
 zeopp_src: "zeo++-0.3"
 zeopp_topdir: "{{ zeopp_code_folder }}/{{zeopp_src}}"
- 
+
 zeopp_executables:
-- name: voro++
-  folder: "{{ zeopp_topdir }}/voro++/src"
-- name: network
-  folder: "{{ zeopp_topdir }}"
-  plugin: zeopp.network
+  - name: voro++
+    folder: "{{ zeopp_topdir }}/voro++/src"
+  - name: network
+    folder: "{{ zeopp_topdir }}"
+    plugin: zeopp.network
 
 root_user: root
