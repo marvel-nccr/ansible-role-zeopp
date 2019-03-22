@@ -1,13 +1,15 @@
 ---
-zeopp_version: "0.3"
-zeopp_src_archive: "zeo++-{{ zeopp_version }}.tar.gz"
-zeopp_url: "http://www.zeoplusplus.org/download/{{ zeopp_src_archive }}"
-# need to specify!
-zeopp_url_username: ""
-zeopp_url_password: ""
-
-zeopp_code_folder: "{{ ansible_env.HOME }}"
-zeopp_src: "zeo++-0.3"
+zeopp_version: 4f5c7bd52b4f5a10c562523c84b44f7cd9528492
+zeopp_github: https://github.com/ltalirz/zeoplusplus.git
+# zeopp_version: "0.3"
+# zeopp_src_archive: "zeo++-{{ zeopp_version }}.tar.gz"
+# zeopp_url: "http://www.zeoplusplus.org/download/{{ zeopp_src_archive }}"
+# # need to specify!
+# zeopp_url_username: ""
+# zeopp_url_password: ""
+# zeopp_code_folder: "{{ ansible_env.HOME }}"
+# zeopp_src: "zeo++-0.3"
+zeopp_src: "zeoplusplus"
 zeopp_topdir: "{{ zeopp_code_folder }}/{{zeopp_src}}"
 
 zeopp_executables:

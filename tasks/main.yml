@@ -1,20 +1,27 @@
 ---
-# Will only download once
-- name: Get zeo++ source
-  get_url:
-    url: "{{ zeopp_url }}"
-    dest: "{{ zeopp_code_folder }}/{{  zeopp_src_archive }}"
-    url_username: "{{ zeopp_url_username }}"
-    url_password: "{{ zeopp_url_password }}"
-    # for some reason, server takes ~10s to respond when queried from OS
-    timeout: 30
-  register: zeopp_download
+- name: Get source from github
+  git:
+    repo: https://github.com/ltalirz/zeoplusplus
+    dest: "{{ zeopp_topdir }}"
+    version: "{{ zeopp_version }}"
+  register: git_checkout
 
-- name: Extract zeo++ source
-  unarchive:
-    src: "{{ zeopp_download.dest }}"
-    dest: "{{ zeopp_code_folder }}"
-    remote_src: false
+# # Will only download once
+# - name: Get zeo++ source
+#   get_url:
+#     url: "{{ zeopp_url }}"
+#     dest: "{{ zeopp_code_folder }}/{{  zeopp_src_archive }}"
+#     url_username: "{{ zeopp_url_username }}"
+#     url_password: "{{ zeopp_url_password }}"
+#     # for some reason, server takes ~10s to respond when queried from OS
+#     timeout: 30
+#   register: zeopp_download
+#
+# - name: Extract zeo++ source
+#   unarchive:
+#     src: "{{ zeopp_download.dest }}"
+#     dest: "{{ zeopp_code_folder }}"
+#     remote_src: false
 
 - name: "Install prerequisites"
   become: true
