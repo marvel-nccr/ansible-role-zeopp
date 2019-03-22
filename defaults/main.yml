@@ -7,7 +7,7 @@ zeopp_github: https://github.com/ltalirz/zeoplusplus.git
 # # need to specify!
 # zeopp_url_username: ""
 # zeopp_url_password: ""
-# zeopp_code_folder: "{{ ansible_env.HOME }}"
+zeopp_code_folder: "{{ ansible_env.HOME }}"
 # zeopp_src: "zeo++-0.3"
 zeopp_src: "zeoplusplus"
 zeopp_topdir: "{{ zeopp_code_folder }}/{{zeopp_src}}"
