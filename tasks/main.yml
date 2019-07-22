@@ -25,29 +25,32 @@
 
 - name: "Install prerequisites"
   become: true
-  become_user: "{{ root_user }}"
   apt:
     name:
       - build-essential
       - gcc
 
 - name: "Make zeopp executables"
-  shell: "make"
+  command: "make"
   args:
-    chdir: "{{ item.folder }}"
-    creates: "{{ item.folder }}/{{ item.name }}"
+    chdir: "{{ item.src_folder }}"
+    creates: "{{ item.src_folder }}/{{ item.name }}"
   with_items: "{{ zeopp_executables }}"
   register: voropp_make
 
 # - name: zeo++ tests
 #   import_tasks: tests.yml
 #   when: zeopp_make.changed and run_tests is defined and run_tests
-#
-- name: "Put a line in ~/.profile to add {{ item.name }} to the path"
-  lineinfile:
-    path: "{{ ansible_env.HOME }}/.profile"
-    line: "export PATH=${PATH}:{{ item.folder }}"
+
+- name: Install zeopp executables
+  become: true
+  copy:
+    src: "{{ item.src_folder }}/{{ item.name }}"
+    dest: "{{ item.folder }}/"
+    remote_src: true
+    mode: '0755'
   with_items: "{{ zeopp_executables }}"
+  register: zeopp_install
 
 - include_role:
     name: release_notes
@@ -63,6 +66,6 @@
     section: "zeo++"
     option: "usage"
     value: >-
-        zeo++ is installed in {{ zeopp_topdir }}.
+        zeo++ is installed in {{ zeopp_prefix }}.
         'network', 'voro++' have been added to the PATH
   when: release_notes is defined and release_notes
