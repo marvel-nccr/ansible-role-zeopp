@@ -17,7 +17,9 @@ zeopp_executables:
   - name: voro++
     src_folder: "{{ zeopp_topdir }}/voro++/src"
     folder: "{{ zeopp_prefix }}/bin"
+    version: "{{ zeopp_version }}"
   - name: network
     src_folder: "{{ zeopp_topdir }}"
     folder: "{{ zeopp_prefix }}/bin"
     plugin: zeopp.network
+    version: "{{ zeopp_version }}"
